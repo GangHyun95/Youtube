@@ -24,7 +24,7 @@ export default function Videos() {
     return (
         <>
             {videos && (
-                <ul>
+                <ul className={styles.grid}>
                     {videos.map((video: Video) => (
                         <VideoCard key={video.id} video={video} />
                     ))}

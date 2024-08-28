@@ -21,7 +21,16 @@ interface VideoSnippet {
     };
     channelTitle: string;
 }
+
+interface VideoStatistics {
+    viewCount: string;
+    likeCount: string;
+    favoriteCount: string;
+    commentCount: string;
+}
+
 export interface Video {
     id: string;
     snippet: VideoSnippet;
+    statistics: VideoStatistics;
 }

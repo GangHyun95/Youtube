@@ -18,16 +18,25 @@ const YoutubeApi = {
                 q: keyword,
             },
         });
-        return response.data.items.map((item: any) => ({
+
+        const videoIds = response.data.items.map((item: any) => item.id.videoId).join(',');
+        const videosResponse = await this.httpClient.get("videos", {
+            params: {
+                part: "snippet,statistics",
+                id: videoIds,
+            },
+        });
+
+        return videosResponse.data.items.map((item: any) => ({
             ...item,
-            id: item.id.videoId,
+            id: item.id,
         }));
     },
 
     async getPopularVideos() {
         const response = await this.httpClient.get("videos", {
             params: {
-                part: "snippet",
+                part: "snippet, statistics",
                 maxResults: 25,
                 chart: "mostPopular",
                 regionCode: "KR",
