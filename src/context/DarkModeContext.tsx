@@ -27,12 +27,14 @@ export function DarkModeProvider({ children }: { children: ReactNode }) {
         setDarkMode(isDark);
         updateDarkMode(isDark);
     }, []);
+    
     return (
         <DarkModeContext.Provider value={{ darkMode, toggleDarkMode }}>
             {children}
         </DarkModeContext.Provider>
     );
 }
+
 function updateDarkMode(darkMode: boolean) {
     if (darkMode) {
         document.documentElement.classList.add("dark");
@@ -42,6 +44,7 @@ function updateDarkMode(darkMode: boolean) {
         localStorage.theme = 'light';
     }
 }
+
 export function useDarkMode() {
     const context = useContext(DarkModeContext);
     if (!context) {
