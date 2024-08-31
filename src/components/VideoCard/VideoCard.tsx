@@ -1,14 +1,14 @@
-import React from "react";
+import React, { forwardRef } from "react";
 import { Video } from "../../../public/types";
 import styles from "./VideoCard.module.css";
 import { formatDateTime, formatViewCount } from "../../util";
 
-export default function VideoCard({ video }: { video: Video }) {
+const VideoCard = forwardRef<HTMLLIElement, { video: Video }>(({ video }, ref) => {
     const { title, channelTitle, thumbnails, publishedAt } = video.snippet;
     const viewCount = parseInt(video.statistics?.viewCount || "0", 10);
 
     return (
-        <li className={styles.card}>
+        <li className={styles.card} ref={ref}>
             <div className={styles['img-container']}>
                 <img
                     className={styles.img}
@@ -26,4 +26,6 @@ export default function VideoCard({ video }: { video: Video }) {
             </div>
         </li>
     );
-}
+});
+
+export default VideoCard;

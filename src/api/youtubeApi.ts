@@ -6,16 +6,18 @@ const YoutubeApi = {
         params: { key: process.env.REACT_APP_YOUTUBE_API_KEY },
     }),
 
-    search(keyword: string | undefined) {
-        return keyword ? this.getVideosByKeyword(keyword) : this.getPopularVideos();
+    search(keyword: string | undefined, pageToken: string = "") {
+        console.log("!");   
+        return keyword ? this.getVideosByKeyword(keyword, pageToken) : this.getPopularVideos(pageToken);
     },
 
-    async getVideosByKeyword(keyword: string) {
+    async getVideosByKeyword(keyword: string, pageToken: string) {
         const response = await this.httpClient.get("search", {
             params: {
                 part: "snippet",
                 maxResults: 25,
                 q: keyword,
+                pageToken: pageToken,
             },
         });
 
@@ -27,22 +29,30 @@ const YoutubeApi = {
             },
         });
 
-        return videosResponse.data.items.map((item: any) => ({
-            ...item,
-            id: item.id,
-        }));
+        return {
+            items: videosResponse.data.items.map((item: any) => ({
+                ...item,
+                id: item.id,
+            })),
+            nextPageToken: response.data.nextPageToken,
+        }
     },
 
-    async getPopularVideos() {
+    async getPopularVideos(pageToken: string) {
         const response = await this.httpClient.get("videos", {
             params: {
                 part: "snippet, statistics",
                 maxResults: 25,
                 chart: "mostPopular",
                 regionCode: "KR",
+                pageToken: pageToken,
             },
         });
-        return response.data.items;
+        console.log(response);
+        return {
+            items: response.data.items,
+            nextPageToken: response.data.nextPageToken,
+        }
     },
 };
 

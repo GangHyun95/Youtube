@@ -8,7 +8,6 @@
 :root {
   --color-primary: #ff0000;
   --color-text: #22243b;
-  --color-title: #000;
   --color-bg: #fff;
   --color-gray: #606060;
   --color-medium-gray: #ccc;
@@ -18,7 +17,6 @@
 html.dark {
   --color-bg: #030303;
   --color-text: #fff;
-  --color-title: #888;
   --color-light-gray: #333;
   --color-medium-gray: #333;
   --color-gray: #888;
