@@ -2,7 +2,7 @@ import React, { forwardRef } from "react";
 import { Video } from "../../../public/types";
 import styles from "./VideoCard.module.css";
 import { formatDateTime, formatViewCount } from "../../util";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 const VideoCard = forwardRef<HTMLLIElement, { video: Video }>(({ video }, ref) => {
     const { channelThumbnail }: { channelThumbnail: string } = video;
@@ -10,9 +10,20 @@ const VideoCard = forwardRef<HTMLLIElement, { video: Video }>(({ video }, ref) =
     const viewCount = parseInt(video.statistics?.viewCount || "0", 10);
     const { keyword } = useParams();
     const cardClassName = keyword ? styles['card-search'] : styles.card;
+    const navigate = useNavigate();
+
+    const ChannelImage = () => (
+        <div className={styles['channel-img-container']}>
+            <img className={styles.img} src={channelThumbnail} alt={channelTitle} />
+        </div>
+    );
 
     return (
-        <li className={cardClassName} ref={ref}>
+        <li
+            className={cardClassName}
+            ref={ref}
+            onClick={() => navigate(`videos/watch/${video.id}`, { state: { video } })}
+        >
             <section className={styles['img-container']}>
                 <img
                     className={styles.img}
@@ -21,16 +32,12 @@ const VideoCard = forwardRef<HTMLLIElement, { video: Video }>(({ video }, ref) =
                 />
             </section>
             <section className={styles.right}>
-                {!keyword && (
-                    <img className={styles['channel-img']} src={channelThumbnail} alt={channelTitle} />
-                )}
+                {!keyword && ChannelImage()}
                 <div className={keyword ? styles['content-container'] : ''}>
                     <div>
                         <h3 className={styles.title}>{title}</h3>
                         <div className={styles.flex}>
-                            {keyword && (
-                                <img className={styles['channel-img']} src={channelThumbnail} alt={channelTitle} />
-                            )}
+                            {keyword && ChannelImage()}
                             <p className={styles.text}>{channelTitle}</p>
                         </div>
                     </div>

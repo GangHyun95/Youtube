@@ -21,7 +21,7 @@ const YoutubeApi = {
         });
 
         const videoIds = response.data.items.map((item: any) => item.id.videoId).join(',');
-        const channelIds = response.data.items.map((item: any) => item.snippet.channelId).join(',');
+        const channelIds = Array.from(new Set(response.data.items.map((item: any) => item.snippet.channelId)));
 
         const videosResponse = await this.httpClient.get("videos", {
             params: {
@@ -33,7 +33,7 @@ const YoutubeApi = {
         const channelsResponse = await this.httpClient.get("channels", {
             params: {
                 part: "snippet",
-                id: channelIds,
+                id: channelIds.join(','),
             },
         });
 
@@ -57,21 +57,19 @@ const YoutubeApi = {
         const response = await this.httpClient.get("videos", {
             params: {
                 part: "snippet,statistics",
-                maxResults: 20,
+                maxResults: 1,
                 chart: "mostPopular",
                 regionCode: "KR",
                 pageToken: pageToken,
             },
         });
 
-        console.log(response);
-
-        const channelIds = response.data.items.map((item: any) => item.snippet.channelId).join(',');
+        const channelIds = Array.from(new Set(response.data.items.map((item: any) => item.snippet.channelId)));
 
         const channelsResponse = await this.httpClient.get("channels", {
             params: {
                 part: "snippet",
-                id: channelIds,
+                id: channelIds.join(','),
             },
         });
 

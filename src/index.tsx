@@ -6,6 +6,7 @@ import reportWebVitals from "./reportWebVitals";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import NotFound from "./pages/NotFound/NotFound";
 import Videos from "./pages/Videos/Videos";
+import VideoDetail from "./components/VideoDetail/VideoDetail";
 
 const root = ReactDOM.createRoot(
     document.getElementById("root") as HTMLElement
@@ -20,6 +21,7 @@ const router = createBrowserRouter([
             { index: true, element: <Videos /> },
             { path: "/videos", element: <Videos /> },
             { path: "/videos/:keyword", element: <Videos /> },
+            { path: "/videos/watch/:videoId", element: <VideoDetail /> },
         ],
     },
 ]);
