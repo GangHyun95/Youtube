@@ -1,0 +1,8 @@
+.temp {
+    display: grid;
+    background-color: var(--color-bg);
+    grid-template-columns: minmax(600px, 1fr) minmax(auto, 400px);
+    margin: 0 auto;
+    padding: 0 24px;
+    grid-column-gap: 24px;
+}

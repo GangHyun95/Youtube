@@ -24,9 +24,34 @@ interface VideoStatistics {
     commentCount: string;
 }
 
+export interface ChannelDetail {
+    id: string;
+    thumbnail: string;
+    subscriberCount: string;
+    relatedPlaylists: {
+        likes: string;
+        uploads: string;
+    }
+    contentDetails: {
+        relatedPlaylists: {
+            likes: string;
+            uploads: string;
+        }
+    }
+    snippet: {
+        thumbnails: {
+            default: Thumbnail;
+        }
+    }
+    statistics: {
+        subscriberCount: string;
+    }
+}
+
 export interface Video {
     id: string;
     channelThumbnail: string;
     snippet: VideoSnippet;
     statistics: VideoStatistics;
+    channelDetails: ChannelDetail;
 }

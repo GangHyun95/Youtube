@@ -3,26 +3,20 @@ import { Video } from "../../../public/types";
 import styles from "./VideoCard.module.css";
 import { formatDateTime, formatViewCount } from "../../util";
 import { useNavigate, useParams } from "react-router-dom";
+import ChannelImage from "../ChannelImage/ChannelImage";
 
 const VideoCard = forwardRef<HTMLLIElement, { video: Video }>(({ video }, ref) => {
-    const { channelThumbnail }: { channelThumbnail: string } = video;
     const { title, channelTitle, thumbnails, publishedAt, description } = video.snippet;
     const viewCount = parseInt(video.statistics?.viewCount || "0", 10);
     const { keyword } = useParams();
     const cardClassName = keyword ? styles['card-search'] : styles.card;
     const navigate = useNavigate();
 
-    const ChannelImage = () => (
-        <div className={styles['channel-img-container']}>
-            <img className={styles.img} src={channelThumbnail} alt={channelTitle} />
-        </div>
-    );
-
     return (
         <li
             className={cardClassName}
             ref={ref}
-            onClick={() => navigate(`videos/watch/${video.id}`, { state: { video } })}
+            onClick={() => navigate(`/videos/watch/${video.id}`, { state: { video } })}
         >
             <section className={styles['img-container']}>
                 <img
@@ -32,12 +26,12 @@ const VideoCard = forwardRef<HTMLLIElement, { video: Video }>(({ video }, ref) =
                 />
             </section>
             <section className={styles.right}>
-                {!keyword && ChannelImage()}
+                {!keyword && <ChannelImage src={video.channelDetails.snippet.thumbnails.default.url} alt={channelTitle}/>}
                 <div className={keyword ? styles['content-container'] : ''}>
                     <div>
                         <h3 className={styles.title}>{title}</h3>
                         <div className={styles.flex}>
-                            {keyword && ChannelImage()}
+                            {keyword && <ChannelImage src={video.channelDetails.snippet.thumbnails.default.url} alt={channelTitle}/>}
                             <p className={styles.text}>{channelTitle}</p>
                         </div>
                     </div>

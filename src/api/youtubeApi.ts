@@ -1,4 +1,5 @@
 import axios from "axios";
+import { ChannelDetail, Video } from "../../public/types";
 
 const YoutubeApi = {
     httpClient: axios.create({
@@ -14,14 +15,14 @@ const YoutubeApi = {
         const response = await this.httpClient.get("search", {
             params: {
                 part: "snippet",
-                maxResults: 20,
+                maxResults: 10,
                 q: keyword,
                 pageToken: pageToken,
             },
         });
 
         const videoIds = response.data.items.map((item: any) => item.id.videoId).join(',');
-        const channelIds = Array.from(new Set(response.data.items.map((item: any) => item.snippet.channelId)));
+        const channelIds = Array.from(new Set(response.data.items.map((item: Video) => item.snippet.channelId)));
 
         const videosResponse = await this.httpClient.get("videos", {
             params: {
@@ -32,22 +33,21 @@ const YoutubeApi = {
 
         const channelsResponse = await this.httpClient.get("channels", {
             params: {
-                part: "snippet",
+                part: "snippet,contentDetails,statistics",
                 id: channelIds.join(','),
             },
         });
 
-        const channelThumbnails: { [key: string]: string } = {};
+        const channelDetails: { [key: string]: ChannelDetail } = {};
 
-        channelsResponse.data.items.forEach((channel: any) => {
-            channelThumbnails[channel.id] = channel.snippet.thumbnails.default.url;
+        channelsResponse.data.items.forEach((channel: ChannelDetail) => {
+            channelDetails[channel.id] = channel
         });
 
         return {
             items: videosResponse.data.items.map((item: any) => ({
                 ...item,
-                id: item.id,
-                channelThumbnail: channelThumbnails[item.snippet.channelId],
+                channelDetails: channelDetails[item.snippet.channelId],
             })),
             nextPageToken: response.data.nextPageToken,
         };
@@ -57,32 +57,32 @@ const YoutubeApi = {
         const response = await this.httpClient.get("videos", {
             params: {
                 part: "snippet,statistics",
-                maxResults: 1,
+                maxResults: 20,
                 chart: "mostPopular",
                 regionCode: "KR",
                 pageToken: pageToken,
             },
         });
 
-        const channelIds = Array.from(new Set(response.data.items.map((item: any) => item.snippet.channelId)));
+        const channelIds = Array.from(new Set(response.data.items.map((item: Video) => item.snippet.channelId)));
 
         const channelsResponse = await this.httpClient.get("channels", {
             params: {
-                part: "snippet",
+                part: "snippet,contentDetails,statistics",
                 id: channelIds.join(','),
             },
         });
 
-        const channelThumbnails: { [key: string]: string } = {};
+        const channelDetails: { [key: string]: ChannelDetail } = {};
 
-        channelsResponse.data.items.forEach((channel: any) => {
-            channelThumbnails[channel.id] = channel.snippet.thumbnails.default.url;
+        channelsResponse.data.items.forEach((channel: ChannelDetail) => {
+            channelDetails[channel.id] = channel
         });
 
         return {
-            items: response.data.items.map((item: any) => ({
+            items: response.data.items.map((item: Video) => ({
                 ...item,
-                channelThumbnail: channelThumbnails[item.snippet.channelId],
+                channelDetails: channelDetails[item.snippet.channelId],
             })),
             nextPageToken: response.data.nextPageToken,
         };

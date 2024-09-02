@@ -22,7 +22,6 @@
     position: absolute;
     top: 0;
     left: 0;
-    object-fit: cover;
 }
 
 .right {
@@ -30,6 +29,10 @@
     display: flex;
     margin-top: 12px;
     margin-bottom: 4px;
+}
+
+.card-search .right {
+    max-width: 50%;
 }
 
 .content-container {
