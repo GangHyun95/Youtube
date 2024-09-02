@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import styles from "./SearchHeader.module.css";
 import { BsYoutube, BsSearch, BsMicFill } from "react-icons/bs";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams, useLocation } from "react-router-dom";
 import { PiMoon, PiSun } from "react-icons/pi";
 import { useDarkMode } from "../../context/DarkModeContext";
 import Modal from "../Modal/Modal";
@@ -12,6 +12,7 @@ export default function SearchHeader() {
     const { darkMode, toggleDarkMode } = useDarkMode();
     const [modalOpen, setModalOpen] = useState<boolean>(false);
     const navigate = useNavigate();
+    const location = useLocation();
 
     const openModal = () => setModalOpen(true);
     const closeModal = () => setModalOpen(false);
@@ -31,6 +32,14 @@ export default function SearchHeader() {
         navigate(`/videos/${command}`);
     };
 
+    const handleLogoClick = () => {
+        if (location.pathname === "/") {
+            window.location.reload();
+        } else {
+            navigate("/");
+        }
+    };
+
     useEffect(() => {
         setText(keyword || "");
     }, [keyword]);
@@ -38,7 +47,7 @@ export default function SearchHeader() {
     return (
         <>
             <header className={styles.header}>
-                <div className={styles.logo} onClick={() => navigate("/")}>
+                <div className={styles.logo} onClick={handleLogoClick}>
                     <BsYoutube />
                     <h1>Youtube</h1>
                 </div>

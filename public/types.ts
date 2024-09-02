@@ -1,23 +1,18 @@
+interface Thumbnail {
+    url: string;
+    width: number;
+    height: number;
+}
+
 interface VideoSnippet {
     publishedAt: string;
     title: string;
     description: string;
+    channelId: string;
     thumbnails: {
-        default: {
-            url: string;
-            width: number;
-            height: number;
-        };
-        medium: {
-            url: string;
-            width: number;
-            height: number;
-        };
-        high: {
-            url: string;
-            width: number;
-            height: number;
-        };
+        default: Thumbnail;
+        medium: Thumbnail;
+        high: Thumbnail;
     };
     channelTitle: string;
 }
@@ -31,6 +26,7 @@ interface VideoStatistics {
 
 export interface Video {
     id: string;
+    channelThumbnail: string;
     snippet: VideoSnippet;
     statistics: VideoStatistics;
 }

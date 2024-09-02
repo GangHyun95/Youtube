@@ -41,13 +41,12 @@ export default function Videos() {
         },
         [isFetchingNextPage, fetchNextPage, hasNextPage]
     );
-    console.log(videos);
+    const listStyle = keyword ? styles.list : styles.grid;
     return (
         <>
-            <ul className={styles.grid}>
+            <ul className={listStyle}>
                 {videos?.pages.map((page, pageIndex) => 
                     page.items.map((video: Video, index: number) => {
-                        console.log(index);
                         if (pageIndex === videos.pages.length - 1 && index === page.items.length - 1) {
                             return (
                                 <VideoCard ref={lastVideoElementRef} key={video.id} video={video}/>

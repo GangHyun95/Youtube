@@ -7,7 +7,6 @@ const YoutubeApi = {
     }),
 
     search(keyword: string | undefined, pageToken: string = "") {
-        console.log("!");   
         return keyword ? this.getVideosByKeyword(keyword, pageToken) : this.getPopularVideos(pageToken);
     },
 
@@ -15,13 +14,15 @@ const YoutubeApi = {
         const response = await this.httpClient.get("search", {
             params: {
                 part: "snippet",
-                maxResults: 25,
+                maxResults: 20,
                 q: keyword,
                 pageToken: pageToken,
             },
         });
 
         const videoIds = response.data.items.map((item: any) => item.id.videoId).join(',');
+        const channelIds = response.data.items.map((item: any) => item.snippet.channelId).join(',');
+
         const videosResponse = await this.httpClient.get("videos", {
             params: {
                 part: "snippet,statistics",
@@ -29,30 +30,64 @@ const YoutubeApi = {
             },
         });
 
+        const channelsResponse = await this.httpClient.get("channels", {
+            params: {
+                part: "snippet",
+                id: channelIds,
+            },
+        });
+
+        const channelThumbnails: { [key: string]: string } = {};
+
+        channelsResponse.data.items.forEach((channel: any) => {
+            channelThumbnails[channel.id] = channel.snippet.thumbnails.default.url;
+        });
+
         return {
             items: videosResponse.data.items.map((item: any) => ({
                 ...item,
                 id: item.id,
+                channelThumbnail: channelThumbnails[item.snippet.channelId],
             })),
             nextPageToken: response.data.nextPageToken,
-        }
+        };
     },
 
     async getPopularVideos(pageToken: string) {
         const response = await this.httpClient.get("videos", {
             params: {
-                part: "snippet, statistics",
-                maxResults: 25,
+                part: "snippet,statistics",
+                maxResults: 20,
                 chart: "mostPopular",
                 regionCode: "KR",
                 pageToken: pageToken,
             },
         });
+
         console.log(response);
+
+        const channelIds = response.data.items.map((item: any) => item.snippet.channelId).join(',');
+
+        const channelsResponse = await this.httpClient.get("channels", {
+            params: {
+                part: "snippet",
+                id: channelIds,
+            },
+        });
+
+        const channelThumbnails: { [key: string]: string } = {};
+
+        channelsResponse.data.items.forEach((channel: any) => {
+            channelThumbnails[channel.id] = channel.snippet.thumbnails.default.url;
+        });
+
         return {
-            items: response.data.items,
+            items: response.data.items.map((item: any) => ({
+                ...item,
+                channelThumbnail: channelThumbnails[item.snippet.channelId],
+            })),
             nextPageToken: response.data.nextPageToken,
-        }
+        };
     },
 };
 

@@ -6,3 +6,12 @@
     column-gap: 16px;
     row-gap: 24px;
 }
+
+.list {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    max-width: 1300px;
+    margin: 0 auto;
+    padding-top: 24px;
+}
