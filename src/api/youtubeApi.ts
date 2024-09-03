@@ -87,6 +87,17 @@ const YoutubeApi = {
             nextPageToken: response.data.nextPageToken,
         };
     },
+
+    async getComments(videoId: string) {
+        const response = await this.httpClient.get("commentThreads", {
+            params: {
+                part: "snippet",
+                videoId: videoId,
+                maxResults: 10,
+            },
+        });
+        return response.data.items;
+    },
 };
 
 export default YoutubeApi;

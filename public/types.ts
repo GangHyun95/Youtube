@@ -56,3 +56,21 @@ export interface Video {
     statistics: VideoStatistics;
     channelDetails: ChannelDetail;
 }
+
+export interface Comment {
+    id: string;
+    snippet: {
+        topLevelComment: {
+            snippet: {
+                authorChannelUrl: string;
+                authorDisplayName: string;
+                authorProfileImageUrl: string;
+                likeCount: string;
+                publishedAt: string;
+                textDisplay: string;
+                textOriginal: string;
+                updatedAt: string;
+            }
+        }
+    }
+}

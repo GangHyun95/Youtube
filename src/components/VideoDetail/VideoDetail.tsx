@@ -16,8 +16,10 @@ export default function VideoDetail() {
     const descRef = useRef<HTMLPreElement>(null);
 
     const { title, description, channelTitle, publishedAt } = video.snippet;
-    const { viewCount } = video.statistics;
+    const { viewCount, commentCount } = video.statistics;
     const subscriberCount = parseInt(video.channelDetails.statistics.subscriberCount || "0", 10);
+
+    console.log(video);
 
     useEffect(() => {
         if (descRef.current) {
@@ -72,7 +74,7 @@ export default function VideoDetail() {
                         )}
                     </div>
                 </section>
-                <CommentList/>
+                <CommentList videoId={video.id} commentCount={commentCount}/>
             </article>
             <section className={styles.right}>
                 <RelatedVideos/>

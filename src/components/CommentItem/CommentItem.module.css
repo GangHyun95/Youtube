@@ -1,0 +1,23 @@
+.list {
+    display: flex;
+}
+
+.flex {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    font-size: 13px;
+    margin-bottom: 5px;
+}
+
+.author {
+    font-weight: bold;
+}
+
+.published {
+    color: var(--color-gray);
+}
+
+.text {
+    font-size: 14px;
+}
