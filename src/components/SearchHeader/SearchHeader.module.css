@@ -26,14 +26,14 @@
 }
 
 .center {
-    flex: 0 1 732px;
+    flex: 0 1 50%;
     display: flex;
     align-items: center;
     gap: 20px;
 }
 
 .form {
-    flex: 0 1 540px;
+    flex: 0 1 75%;
     display: flex;
     justify-content: center;
     align-items: center;

@@ -21,7 +21,7 @@ const VideoCard = forwardRef<HTMLLIElement, { video: Video }>(({ video }, ref) =
             <section className={styles['img-container']}>
                 <img
                     className={styles.img}
-                    src={keyword ? thumbnails.high.url : thumbnails.medium.url}
+                    src={thumbnails?.maxres?.url || (keyword ? thumbnails.high.url : thumbnails.medium.url)}
                     alt={title}
                 />
             </section>

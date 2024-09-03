@@ -1,8 +1,106 @@
-.temp {
-    display: grid;
+.flex {
+    display: flex;
     background-color: var(--color-bg);
-    grid-template-columns: minmax(600px, 1fr) minmax(auto, 400px);
-    margin: 0 auto;
     padding: 0 24px;
-    grid-column-gap: 24px;
+    gap: 24px;
+    padding-top: 24px;
+    color: var(--color-text);
+}
+
+.left {
+    width: 70%;
+}
+
+.right {
+    width: 30%;
+    background-color: yellow;
+}
+
+.video-container {
+    position: relative;
+    width: 100%;
+    padding-bottom: 56.25%;
+    overflow: hidden;
+    margin-bottom: 12px;
+}
+
+.video-container iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.channel-details {
+    margin-bottom: 24px;
+}
+
+.title {
+    font-size: 20px;
+    line-height: 28px;
+    margin-bottom: 12px;
+}
+
+.channel-info {
+    display: flex;
+    margin-bottom: 12px;
+}
+
+.channel-title {
+    font-size: 16px;
+    font-weight: 500;
+}
+
+.sub-count {
+    font-size: 12px;
+    color: var(--color-gray);
+}
+
+.desc {
+    padding: 12px;
+    border-radius: 20px;
+    background-color: var(--color-light-gray);
+    font-size: 14px;
+}
+
+.desc.cursor {
+    cursor: pointer;
+}
+
+.desc pre {
+    font-family: "Roboto", sans-serif;
+}
+
+.count {
+    margin-bottom: 8px;
+}
+
+.bold {
+    font-weight: bold;
+}
+
+.bold:not(:last-child)::after {
+    content: "•";
+    margin: 0 4px;
+    color: inherit;
+}
+
+.collapsed {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    white-space: pre-wrap;
+}
+
+.expanded {
+    white-space: pre-wrap;
+    overflow: visible;
+}
+
+.toggle {
+    display: block;
+    font-weight: bold;
+    margin-top: 4px;
 }

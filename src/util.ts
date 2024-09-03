@@ -45,3 +45,15 @@ export function formatDateTime(dateString: string): string {
         return `${years}년 전`;
     }
 }
+
+export function formatSubscriberCount(subscriberCount: number): string {
+    if (subscriberCount >= 100000000) {
+        return `${(subscriberCount / 100000000).toFixed(1)}억명`;
+    } else if (subscriberCount >= 10000) {
+        return `${(subscriberCount / 10000).toFixed(subscriberCount % 10000 === 0 ? 0 : 1)}만명`;
+    } else if (subscriberCount >= 1000) {
+        return `${(subscriberCount / 1000).toFixed(subscriberCount % 1000 === 0 ? 0 : 1)}천명`;
+    } else {
+        return `${subscriberCount}명`;
+    }
+}

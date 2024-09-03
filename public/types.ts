@@ -13,6 +13,7 @@ interface VideoSnippet {
         default: Thumbnail;
         medium: Thumbnail;
         high: Thumbnail;
+        maxres: Thumbnail;
     };
     channelTitle: string;
 }
