@@ -1,10 +1,10 @@
-import React from "react";
+import React, { forwardRef } from "react";
 import { Comment } from "../../../public/types";
 import ChannelImage from "../ChannelImage/ChannelImage";
 import styles from './CommentItem.module.css'
 import { formatDateTime } from "../../util";
 
-export default function CommentItem({ comment }: { comment: Comment }) {
+const CommentItem = forwardRef<HTMLLIElement, { comment: Comment }>(({ comment }, ref) => {
     const {
         authorChannelUrl,
         authorDisplayName,
@@ -17,8 +17,8 @@ export default function CommentItem({ comment }: { comment: Comment }) {
     } = comment.snippet.topLevelComment.snippet;
 
     return (
-        <li className={styles.list}>
-            <ChannelImage src={authorProfileImageUrl} alt={authorDisplayName}/>
+        <li className={styles.list} ref={ref}>
+            <ChannelImage src={authorProfileImageUrl} alt={authorDisplayName} />
             <div>
                 <div className={styles.flex}>
                     <p className={styles.author}>{authorDisplayName}</p>
@@ -28,4 +28,6 @@ export default function CommentItem({ comment }: { comment: Comment }) {
             </div>
         </li>
     );
-}
+});
+
+export default CommentItem;

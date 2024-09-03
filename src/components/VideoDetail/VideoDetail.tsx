@@ -19,8 +19,6 @@ export default function VideoDetail() {
     const { viewCount, commentCount } = video.statistics;
     const subscriberCount = parseInt(video.channelDetails.statistics.subscriberCount || "0", 10);
 
-    console.log(video);
-
     useEffect(() => {
         if (descRef.current) {
             setIsTruncated(descRef.current.scrollHeight > descRef.current.clientHeight);

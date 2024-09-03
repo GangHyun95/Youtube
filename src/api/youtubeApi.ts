@@ -88,15 +88,16 @@ const YoutubeApi = {
         };
     },
 
-    async getComments(videoId: string) {
+    async getComments(videoId: string, pageToken: string) {
         const response = await this.httpClient.get("commentThreads", {
             params: {
                 part: "snippet",
                 videoId: videoId,
                 maxResults: 10,
+                pageToken: pageToken,
             },
         });
-        return response.data.items;
+        return response.data;
     },
 };
 
