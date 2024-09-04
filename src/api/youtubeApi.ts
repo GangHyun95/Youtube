@@ -110,6 +110,29 @@ const YoutubeApi = {
             },
         });
         return response.data;
+    },
+
+    async getVideoById(videoId: string) {
+        const response = await this.httpClient.get("videos", {
+            params: {
+                part: "snippet,statistics",
+                id: videoId,
+            },
+        });
+    
+        const channelId = response.data.items[0].snippet.channelId;
+    
+        const channelResponse = await this.httpClient.get("channels", {
+            params: {
+                part: "snippet,contentDetails,statistics",
+                id: channelId,
+            },
+        });
+    
+        return {
+            ...response.data.items[0],
+            channelDetails: channelResponse.data.items[0],
+        };
     }
 };
 

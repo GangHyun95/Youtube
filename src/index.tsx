@@ -6,7 +6,7 @@ import reportWebVitals from "./reportWebVitals";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import NotFound from "./pages/NotFound/NotFound";
 import Videos from "./pages/Videos/Videos";
-import VideoDetail from "./components/VideoDetail/VideoDetail";
+import VideoDetail from "./pages/VideoDetail/VideoDetail";
 
 const root = ReactDOM.createRoot(
     document.getElementById("root") as HTMLElement

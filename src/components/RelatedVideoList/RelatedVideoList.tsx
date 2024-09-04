@@ -21,8 +21,6 @@ export default function RelatedVideoList({ playlistId, currentId }: { playlistId
                     const filteredVideos = page.items.filter((video: PlaylistItem) => video.snippet.resourceId.videoId !== currentId);
 
                     return filteredVideos.map((video: PlaylistItem, index: number) => {
-                        console.log(video);
-
                         if (pageIndex === data.pages.length - 1 && index === filteredVideos.length - 1) {
                             return (
                                 <RelatedVideoItem ref={lastElementRef} key={video.id} video={video} />
