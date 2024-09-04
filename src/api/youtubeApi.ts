@@ -99,6 +99,18 @@ const YoutubeApi = {
         });
         return response.data;
     },
+
+    async getPlaylistItems(playlistId: string, pageToken: string | undefined) {
+        const response = await this.httpClient.get("playlistItems", {
+            params: {
+                part: "snippet",
+                playlistId: playlistId,
+                pageToken: pageToken,
+                maxResults: 20,
+            },
+        });
+        return response.data;
+    }
 };
 
 export default YoutubeApi;

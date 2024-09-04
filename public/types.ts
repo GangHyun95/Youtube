@@ -74,3 +74,22 @@ export interface Comment {
         }
     }
 }
+
+export interface PlaylistItem {
+    id: string;
+    snippet: {
+        resourceId: {
+            videoId: string;
+        };
+        title: string;
+        channelTitle: string;
+        publishedAt: string;
+        thumbnails: {
+            default: Thumbnail;
+            medium: Thumbnail;
+            high: Thumbnail;
+            maxres: Thumbnail;
+        };
+    };
+}
+

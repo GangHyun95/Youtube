@@ -4,7 +4,7 @@ import { useLocation } from "react-router-dom";
 import ChannelImage from "../ChannelImage/ChannelImage";
 import { formatDateTime, formatSubscriberCount, formatViewCount } from "../../util";
 import CommentList from "../CommentList/CommentList";
-import RelatedVideos from "../RelatedVideos/RelatedVideos";
+import RelatedVideoList from "../RelatedVideoList/RelatedVideoList";
 
 export default function VideoDetail() {
     const {
@@ -18,7 +18,7 @@ export default function VideoDetail() {
     const { title, description, channelTitle, publishedAt } = video.snippet;
     const { viewCount, commentCount } = video.statistics;
     const subscriberCount = parseInt(video.channelDetails.statistics.subscriberCount || "0", 10);
-
+    const relatedPlaylists = video.channelDetails.contentDetails.relatedPlaylists.uploads;
     useEffect(() => {
         if (descRef.current) {
             setIsTruncated(descRef.current.scrollHeight > descRef.current.clientHeight);
@@ -75,7 +75,7 @@ export default function VideoDetail() {
                 <CommentList videoId={video.id} commentCount={commentCount}/>
             </article>
             <section className={styles.right}>
-                <RelatedVideos/>
+                <RelatedVideoList currentId={video.id} playlistId={relatedPlaylists}/>
             </section>
         </section>
     );
