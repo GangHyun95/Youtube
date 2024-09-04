@@ -1,12 +1,13 @@
 import React from "react";
 import { useInfiniteScroll } from "../../hooks/useInfiniteScroll";
 import YoutubeApi from "../../api/youtubeApi";
-import { PlaylistItem, Video } from "../../../public/types";
+import { PlaylistItem } from "../../../public/types";
 import RelatedVideoItem from "../RelatedVideoItem/RelatedVideoItem";
 import styles from './RelatedVideoList.module.css'
+import Loading from "../Loading/Loading";
 
 export default function RelatedVideoList({ playlistId, currentId }: { playlistId: string, currentId: string }) {
-    const { data, lastElementRef, isFetchingNextPage } = useInfiniteScroll({
+    const { data, lastElementRef, isFetchingNextPage, isLoading } = useInfiniteScroll({
         queryKey: ["playlists", playlistId],
         queryFn: async ({ pageParam }) => {
             return YoutubeApi.getPlaylistItems(playlistId, pageParam);
@@ -14,6 +15,9 @@ export default function RelatedVideoList({ playlistId, currentId }: { playlistId
         getNextPageParam: (lastPage) => lastPage.nextPageToken || undefined
     });
     
+    if (isLoading) {
+        return <Loading className="full-screen"/>
+    }
     return (
         <>
             <ul className={styles.list}>
@@ -31,7 +35,7 @@ export default function RelatedVideoList({ playlistId, currentId }: { playlistId
                     });
                 })}
             </ul>
-            {isFetchingNextPage && <p>Loading</p>}
+            {isFetchingNextPage && <Loading className="bottom"/>}
         </>
     );
 }

@@ -1,4 +1,4 @@
-import React, { forwardRef } from "react";
+import React, { forwardRef, useState } from "react";
 import { Video } from "../../../public/types";
 import styles from "./VideoCard.module.css";
 import { formatDateTime, formatViewCount } from "../../util";
@@ -12,11 +12,23 @@ const VideoCard = forwardRef<HTMLLIElement, { video: Video }>(({ video }, ref) =
     const cardClassName = keyword ? styles['card-search'] : styles.card;
     const navigate = useNavigate();
 
+    const [isHovered, setIsHovered] = useState(false);
+
+    const handleMouseEnter = () => {
+        setIsHovered(true);
+    };
+
+    const handleMouseLeave = () => {
+        setIsHovered(false);
+    };
+
     return (
         <li
             className={cardClassName}
             ref={ref}
             onClick={() => navigate(`/videos/watch/${video.id}`, { state: { video } })}
+            onMouseEnter={handleMouseEnter}
+            onMouseLeave={handleMouseLeave}
         >
             <section className={styles['img-container']}>
                 <img
@@ -24,14 +36,34 @@ const VideoCard = forwardRef<HTMLLIElement, { video: Video }>(({ video }, ref) =
                     src={thumbnails?.maxres?.url || (keyword ? thumbnails.high.url : thumbnails.medium.url)}
                     alt={title}
                 />
+                {isHovered && (
+                    <iframe
+                        className={styles.video}
+                        src={`https://www.youtube.com/embed/${video.id}?autoplay=1&mute=1&controls=0&playlist=${video.id}`}
+                        frameBorder="0"
+                        allow="autoplay; encrypted-media"
+                        allowFullScreen
+                        title={title}
+                    ></iframe>
+                )}
             </section>
             <section className={styles.right}>
-                {!keyword && <ChannelImage src={video.channelDetails.snippet.thumbnails.default.url} alt={channelTitle}/>}
+                {!keyword && (
+                    <ChannelImage
+                        src={video.channelDetails.snippet.thumbnails.default.url}
+                        alt={channelTitle}
+                    />
+                )}
                 <div className={keyword ? styles['content-container'] : ''}>
                     <div>
                         <h3 className={styles.title}>{title}</h3>
                         <div className={styles.flex}>
-                            {keyword && <ChannelImage src={video.channelDetails.snippet.thumbnails.default.url} alt={channelTitle}/>}
+                            {keyword && (
+                                <ChannelImage
+                                    src={video.channelDetails.snippet.thumbnails.default.url}
+                                    alt={channelTitle}
+                                />
+                            )}
                             <p className={styles.text}>{channelTitle}</p>
                         </div>
                     </div>

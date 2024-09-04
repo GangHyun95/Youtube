@@ -1,3 +1,6 @@
+.container {
+    position: relative;
+}
 .list {
     display: flex;
     flex-direction: column;

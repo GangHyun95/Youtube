@@ -3,9 +3,10 @@ import { Comment } from "../../../public/types";
 import styles from "./CommentList.module.css";
 import CommentItem from "../CommentItem/CommentItem";
 import { useInfiniteScroll } from "../../hooks/useInfiniteScroll";
+import Loading from "../Loading/Loading";
 
 export default function CommentList({ videoId, commentCount }: { videoId: string, commentCount: string }) {
-    const { data: comments, lastElementRef, isFetchingNextPage } = useInfiniteScroll<{
+    const { data: comments, lastElementRef, isFetchingNextPage, isLoading } = useInfiniteScroll<{
         items: Comment[],
         nextPageToken?: string
     }>({
@@ -17,8 +18,11 @@ export default function CommentList({ videoId, commentCount }: { videoId: string
     });
 
     const formattedCommentCount = parseInt(commentCount, 10).toLocaleString();
+    if (isLoading) {
+        return <Loading className="full-screen"/>
+    }
     return (
-        <>
+        <section className={styles.container}>
             <p className={styles['comment-count']}>댓글 {formattedCommentCount}개</p>
             <ul className={styles.list}>
                 {comments?.pages.map((page, pageIndex) => 
@@ -33,7 +37,7 @@ export default function CommentList({ videoId, commentCount }: { videoId: string
                     })
                 )}
             </ul>
-            {isFetchingNextPage && <p>Loading...</p>}
-        </>
+            {isFetchingNextPage && <Loading className="bottom"/>}
+        </section>
     );
 }

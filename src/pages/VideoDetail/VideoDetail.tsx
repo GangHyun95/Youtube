@@ -1,4 +1,3 @@
-import React from "react";
 import styles from "./VideoDetail.module.css";
 import { useLocation, useParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
@@ -6,6 +5,7 @@ import YoutubeApi from "../../api/youtubeApi";
 import VideoInfo from "../../components/VideoInfo/VideoInfo";
 import CommentList from "../../components/CommentList/CommentList";
 import RelatedVideoList from "../../components/RelatedVideoList/RelatedVideoList";
+import Loading from "../../components/Loading/Loading";
 
 export default function VideoDetail() {
     const { videoId } = useParams();
@@ -25,15 +25,19 @@ export default function VideoDetail() {
 
     const video = stateVideo || fetchedVideo;
 
+    if (isLoading) {
+        return <Loading className="full-screen"/>
+    }
     return (
         <section className={styles.flex}>
             <article className={styles.left}>
                 <section className={styles["video-container"]}>
                     <iframe
                         id="player"
-                        src={`http://www.youtube.com/embed/${videoId}`}
+                        src={`http://www.youtube.com/embed/${video.id}`}
                         frameBorder="0"
                         allowFullScreen
+                        title = {video.snippet.title}
                     />
                 </section>
                 {video && (

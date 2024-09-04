@@ -24,7 +24,7 @@ export function useInfiniteScroll<T>({
     refetchOnReconnect = false,
     initialPageParam = "",
 }: InfiniteScrollOptions<T>) {
-    const { data, fetchNextPage, hasNextPage, isFetchingNextPage } =
+    const { data, fetchNextPage, hasNextPage, isFetchingNextPage, isLoading } =
         useInfiniteQuery({
             queryKey,
             queryFn,
@@ -52,5 +52,5 @@ export function useInfiniteScroll<T>({
         [isFetchingNextPage, fetchNextPage, hasNextPage]
     );
 
-    return { data, lastElementRef, isFetchingNextPage };
+    return { data, lastElementRef, isFetchingNextPage, isLoading };
 }

@@ -4,11 +4,17 @@ import VideoCard from "../../components/VideoCard/VideoCard";
 import { Video } from "../../../public/types";
 import YoutubeApi from "../../api/youtubeApi";
 import { useInfiniteScroll } from "../../hooks/useInfiniteScroll";
+import Loading from "../../components/Loading/Loading";
 
 export default function Videos() {
     const { keyword } = useParams();
 
-    const { data: videos, lastElementRef, isFetchingNextPage } = useInfiniteScroll<{
+    const { 
+        data: videos, 
+        lastElementRef, 
+        isFetchingNextPage,
+        isLoading
+    } = useInfiniteScroll<{
         items: Video[],
         nextPageToken?: string,
     }>({
@@ -21,6 +27,9 @@ export default function Videos() {
 
     const listStyle = keyword ? styles.list : styles.grid;
 
+    if (isLoading) {
+        return <Loading className="full-screen" />;
+    }
     return (
         <>
             <ul className={listStyle}>
@@ -36,7 +45,7 @@ export default function Videos() {
                     })
                 )}
             </ul>
-            {isFetchingNextPage && <p>Loading...</p>}
+            {isFetchingNextPage && <Loading className="bottom"/>}
         </>
     );
 }
