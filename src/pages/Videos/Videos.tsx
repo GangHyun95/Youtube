@@ -1,47 +1,26 @@
 import { useParams } from "react-router-dom";
 import styles from "./Videos.module.css";
-import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
 import VideoCard from "../../components/VideoCard/VideoCard";
 import { Video } from "../../../public/types";
 import YoutubeApi from "../../api/youtubeApi";
-import { useCallback, useRef } from "react";
+import { useInfiniteScroll } from "../../hooks/useInfiniteScroll";
 
 export default function Videos() {
     const { keyword } = useParams();
-    const {
-        data: videos,
-        fetchNextPage,
-        hasNextPage,
-        isFetchingNextPage,
-    } = useInfiniteQuery({
-        queryKey: ["videos", keyword],
+
+    const { data: videos, lastElementRef, isFetchingNextPage } = useInfiniteScroll<{
+        items: Video[],
+        nextPageToken?: string,
+    }>({
+        queryKey: ["videos", keyword || ""],
         queryFn: async ({ pageParam }) => {
-            return YoutubeApi.search(keyword, pageParam);
+            return YoutubeApi.search(keyword || "", pageParam);
         },
         getNextPageParam: (lastPage) => lastPage.nextPageToken || undefined,
-        staleTime: 60000,
-        gcTime: 1000 * 60 * 10,
-        refetchOnWindowFocus: false,
-        refetchOnMount: false,
-        refetchOnReconnect: false,
-        initialPageParam: "",
     });
 
-    const observer = useRef<IntersectionObserver | null>(null);
-    const lastVideoElementRef = useCallback(
-        (node: HTMLElement | null) => {
-            if (isFetchingNextPage) return;
-            if (observer.current) observer.current.disconnect();
-            observer.current = new IntersectionObserver((entries) => {
-                if (entries[0].isIntersecting && hasNextPage) {
-                    fetchNextPage();
-                }
-            });
-            if (node) observer.current.observe(node);
-        },
-        [isFetchingNextPage, fetchNextPage, hasNextPage]
-    );
     const listStyle = keyword ? styles.list : styles.grid;
+
     return (
         <>
             <ul className={listStyle}>
@@ -49,15 +28,15 @@ export default function Videos() {
                     page.items.map((video: Video, index: number) => {
                         if (pageIndex === videos.pages.length - 1 && index === page.items.length - 1) {
                             return (
-                                <VideoCard ref={lastVideoElementRef} key={video.id} video={video}/>
+                                <VideoCard ref={lastElementRef} key={video.id} video={video} />
                             );
                         } else {
-                            return <VideoCard key={video.id} video={video}/>
+                            return <VideoCard key={video.id} video={video} />;
                         }
                     })
                 )}
-                {isFetchingNextPage && <p>Loading</p>}
             </ul>
+            {isFetchingNextPage && <p>Loading...</p>}
         </>
     );
 }

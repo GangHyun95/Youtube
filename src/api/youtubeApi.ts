@@ -88,7 +88,7 @@ const YoutubeApi = {
         };
     },
 
-    async getComments(videoId: string, pageToken: string) {
+    async getComments(videoId: string, pageToken: string | undefined) {
         const response = await this.httpClient.get("commentThreads", {
             params: {
                 part: "snippet",
