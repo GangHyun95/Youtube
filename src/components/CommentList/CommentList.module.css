@@ -38,12 +38,14 @@
     font-weight: bold;
     z-index: 10;
     text-align: right;
+    color: var(--color-text);
 }
 
 .expand-button {
     font-weight: bold;
     margin-top: 10px;
     text-align: center;
+    color: var(--color-text);
 }
 
 @media screen and (max-width: 1024px) {
@@ -58,11 +60,11 @@
     }
     .flex {
         position: sticky;
-        top: 72px;
+        top: 68px;
         left: 0;
         z-index: 10;
         padding: 16px;
-        background-color: white;
+        background-color: var(--color-bg);
     }
     
     .comment-count {

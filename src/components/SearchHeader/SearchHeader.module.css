@@ -34,6 +34,7 @@
 .center {
     flex: 0 1 50%;
     display: flex;
+    justify-content: center;
     align-items: center;
     gap: 20px;
 }
@@ -48,7 +49,7 @@
     overflow: hidden;
 }
 
-.form input {
+.form .input {
     flex: 1 0 auto;
     padding: 10px 14px;
     background-color: var(--color-bg);
@@ -57,7 +58,7 @@
     color: var(--color-text);
 }
 
-.form button {
+.form .submit {
     flex-basis: 10%;
     height: 40px;
     padding: 0 16px;
@@ -96,4 +97,66 @@
 
 .icon:hover {
     filter: brightness(0.8);
+}
+
+.back {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.back svg {
+    cursor: pointer;
+    font-size: 30px;
+}
+
+.form .button {
+    display: inline-block;
+    border-radius: 100%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    background-color: var(--color-light-gray);
+    align-items: center;
+    font-size: 16px;
+    color: var(--color-text);
+}
+
+.form .button:hover {
+    filter: brightness(0.8);
+}
+
+
+@media screen and (max-width: 576px) {
+    .center {
+        justify-content: flex-end;
+        flex-grow: 1;
+        gap: 8px;
+    }
+
+    .form {
+        justify-content: flex-end;
+        flex: 0 1 85%;
+    }
+
+    .form:not(.chrome) {
+        flex: 0 1 95%;
+    }
+
+    .center:not(.open) .form {
+        border: none;
+    }
+
+    .center:not(.open) .input {
+        display: none;
+    }
+
+    .form .submit {
+        height: 35px;
+    }
+
+    .icon {
+        margin-left: 8px;
+    }
+
 }

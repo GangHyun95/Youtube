@@ -25,6 +25,10 @@ export default function CommentList({ videoId, commentCount }: { videoId: string
     useEffect(() => {
         const handleResize = () => {
             setIsMobileView(window.innerWidth < 992);
+            
+            if (window.innerWidth > 992) {
+                setIsExpanded(false);
+            }
         };
 
         handleResize();
