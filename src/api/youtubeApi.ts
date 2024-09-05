@@ -100,13 +100,12 @@ const YoutubeApi = {
         return response.data;
     },
 
-    async getPlaylistItems(playlistId: string, pageToken: string | undefined) {
+    async getPlaylistItems(playlistId: string) {
         const response = await this.httpClient.get("playlistItems", {
             params: {
                 part: "snippet",
                 playlistId: playlistId,
-                pageToken: pageToken,
-                maxResults: 10,
+                maxResults: 20,
             },
         });
         return response.data;

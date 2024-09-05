@@ -3,6 +3,12 @@
     padding: 16px;
 }
 
+.flex {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
 .list {
     display: flex;
     flex-direction: column;
@@ -28,9 +34,7 @@
 }
 
 .close-button {
-    position: sticky;
-    top: 0;
-    font-size: 16px;
+    font-size: 20px;
     font-weight: bold;
     z-index: 10;
     text-align: right;
@@ -45,5 +49,23 @@
 @media screen and (max-width: 1024px) {
     .container {
         padding: 0;
+    }
+
+    .list {
+        padding: 8px;
+        background-color: var(--color-light-gray);
+        border-radius: 8px;
+    }
+    .flex {
+        position: sticky;
+        top: 72px;
+        left: 0;
+        z-index: 10;
+        padding: 16px;
+        background-color: white;
+    }
+    
+    .comment-count {
+        margin-bottom: 0;
     }
 }

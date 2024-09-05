@@ -71,3 +71,9 @@
     font-weight: bold;
     margin-top: 4px;
 }
+
+@media screen and (max-width: 992px) {
+    .desc {
+        border-radius: 12px;
+    }
+}

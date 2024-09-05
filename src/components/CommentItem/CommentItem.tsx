@@ -24,7 +24,7 @@ const CommentItem = forwardRef<HTMLLIElement, { comment: Comment, isPreview?: bo
                     <p className={styles.author}>{authorDisplayName}</p>
                     <span className={styles.published}>{formatDateTime(publishedAt)}</span>
                 </div>
-                <p className={`${styles.text} ${styles.preview}`}>{textOriginal}</p>
+                <p className={`${styles.text} ${isPreview ? styles.preview : ''}`}>{textOriginal}</p>
             </div>
         </li>
     );
