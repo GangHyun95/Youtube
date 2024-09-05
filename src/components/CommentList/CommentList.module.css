@@ -1,6 +1,8 @@
 .container {
     position: relative;
+    padding: 16px;
 }
+
 .list {
     display: flex;
     flex-direction: column;
@@ -12,4 +14,36 @@
     font-size: 20px;
     font-weight: bold;
     margin-bottom: 24px;
+}
+
+.comment-preview {
+    display: flex;
+    flex-direction: column;
+    cursor: pointer;
+    padding: 8px;
+    background-color: var(--color-light-gray);
+    border-radius: 8px;
+    max-height: 100px;
+    overflow: hidden;
+}
+
+.close-button {
+    position: sticky;
+    top: 0;
+    font-size: 16px;
+    font-weight: bold;
+    z-index: 10;
+    text-align: right;
+}
+
+.expand-button {
+    font-weight: bold;
+    margin-top: 10px;
+    text-align: center;
+}
+
+@media screen and (max-width: 1024px) {
+    .container {
+        padding: 0;
+    }
 }

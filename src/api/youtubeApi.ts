@@ -106,7 +106,7 @@ const YoutubeApi = {
                 part: "snippet",
                 playlistId: playlistId,
                 pageToken: pageToken,
-                maxResults: 20,
+                maxResults: 10,
             },
         });
         return response.data;
