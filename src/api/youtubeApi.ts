@@ -93,18 +93,19 @@ const YoutubeApi = {
             params: {
                 part: "snippet",
                 videoId: videoId,
-                maxResults: 10,
+                maxResults: 20,
                 pageToken: pageToken,
             },
         });
         return response.data;
     },
 
-    async getPlaylistItems(playlistId: string) {
+    async getPlaylistItems(playlistId: string, pageToken: string | undefined) {
         const response = await this.httpClient.get("playlistItems", {
             params: {
                 part: "snippet",
                 playlistId: playlistId,
+                pageToken: pageToken,
                 maxResults: 20,
             },
         });

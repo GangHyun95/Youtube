@@ -83,7 +83,7 @@ export default function SearchHeader() {
                 ) : (
                     <div className={styles.logo} onClick={handleLogoClick}>
                         <BsYoutube />
-                        <h1>Youtube</h1>
+                        <h1>HyunTube</h1>
                     </div>
                 )}
                 <div

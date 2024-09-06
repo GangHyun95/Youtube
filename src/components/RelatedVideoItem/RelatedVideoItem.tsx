@@ -1,14 +1,15 @@
 import React, { forwardRef } from "react";
-import { PlaylistItem, Video } from "../../../public/types";
+import { PlaylistItem } from "../../../public/types";
 import styles from './RelatedVideoItem.module.css'
 import { formatDateTime } from "../../util";
 import { useNavigate } from "react-router-dom";
 
-export default function RelatedVideoItem({ video }: { video: PlaylistItem }) {
-    const { channelTitle, publishedAt, thumbnails, title} = video.snippet;
+const RelatedVideoItem = forwardRef<HTMLLIElement, { video: PlaylistItem }>(({ video }, ref) => {
+    const { channelTitle, publishedAt, thumbnails, title } = video.snippet;
     const navigate = useNavigate();
+
     return (
-        <li className={styles.flex} onClick={() => navigate(`/videos/watch/${video.snippet.resourceId.videoId}`)}>
+        <li className={styles.flex} ref={ref} onClick={() => navigate(`/videos/watch/${video.snippet.resourceId.videoId}`)}>
             <section className={styles['img-container']}>
                 <img
                     className={styles.img}
@@ -23,4 +24,6 @@ export default function RelatedVideoItem({ video }: { video: PlaylistItem }) {
             </section>
         </li>
     );
-}
+});
+
+export default RelatedVideoItem;
