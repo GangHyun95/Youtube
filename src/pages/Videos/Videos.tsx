@@ -5,6 +5,8 @@ import { Video } from "../../../public/types";
 import YoutubeApi from "../../api/youtubeApi";
 import { useInfiniteScroll } from "../../hooks/useInfiniteScroll";
 import Loading from "../../components/Loading/Loading";
+import { useEffect, useState } from "react";
+import useResponsive from "../../hooks/useResponsive";
 
 export default function Videos() {
     const { keyword } = useParams();
@@ -25,7 +27,9 @@ export default function Videos() {
         getNextPageParam: (lastPage) => lastPage.nextPageToken || undefined,
     });
 
-    const listStyle = keyword ? styles.list : styles.grid;
+    const isMobileView = useResponsive(768);
+
+    const listStyle = keyword && !isMobileView ? styles.list : styles.grid;
 
     if (isLoading) {
         return <Loading className="full-screen" />;

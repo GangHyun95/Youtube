@@ -5,9 +5,10 @@ import CommentItem from "../CommentItem/CommentItem";
 import { useInfiniteScroll } from "../../hooks/useInfiniteScroll";
 import Loading from "../Loading/Loading";
 import { useEffect, useState } from "react";
+import useResponsive from "../../hooks/useResponsive";
 
 export default function CommentList({ videoId, commentCount }: { videoId: string, commentCount: string }) {
-    const [isMobileView, setIsMobileView] = useState(false);
+    const isMobileView = useResponsive(992);
     const [isExpanded, setIsExpanded] = useState(false);
     const [scrollPosition, setScrollPosition] = useState(0);
 
@@ -21,24 +22,6 @@ export default function CommentList({ videoId, commentCount }: { videoId: string
         },
         getNextPageParam: (lastPage) => lastPage.nextPageToken || undefined,
     });
-
-    useEffect(() => {
-        const handleResize = () => {
-            setIsMobileView(window.innerWidth < 992);
-            
-            if (window.innerWidth > 992) {
-                setIsExpanded(false);
-            }
-        };
-
-        handleResize();
-
-        window.addEventListener("resize", handleResize);
-
-        return () => {
-            window.removeEventListener("resize", handleResize);
-        };
-    }, []);
 
     const formattedCommentCount = parseInt(commentCount, 10).toLocaleString();
 

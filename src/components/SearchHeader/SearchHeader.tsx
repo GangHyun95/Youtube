@@ -6,6 +6,7 @@ import { PiMoon, PiSun } from "react-icons/pi";
 import { useDarkMode } from "../../context/DarkModeContext";
 import Modal from "../Modal/Modal";
 import { IoIosArrowRoundBack } from "react-icons/io";
+import useResponsive from "../../hooks/useResponsive";
 
 export default function SearchHeader() {
     const { keyword } = useParams();
@@ -13,7 +14,7 @@ export default function SearchHeader() {
     const { darkMode, toggleDarkMode } = useDarkMode();
     const [modalOpen, setModalOpen] = useState<boolean>(false);
     const [isChrome, setIsChrome] = useState(false);
-    const [isMobile, setIsMobile] = useState(false);
+    const isMobile = useResponsive(576);
     const [isSearchOpen, setIsSearchOpen] = useState(false);
     const navigate = useNavigate();
     const location = useLocation();
@@ -48,20 +49,12 @@ export default function SearchHeader() {
     const toggleSearch = () => {
         setIsSearchOpen((prev) => !prev);
     };
-
+    
     useEffect(() => {
-        const handleResize = () => {
-            setIsMobile(window.innerWidth < 576);
-            if (window.innerWidth > 576) {
-                setIsSearchOpen(false);
-            }
-        };
-        handleResize();
-        window.addEventListener("resize", handleResize);
-        return () => {
-            window.removeEventListener("resize", handleResize);
-        };
-    }, []);
+        if (!isMobile) {
+            setIsSearchOpen(false);
+        }
+    }, [isMobile]);
 
     useEffect(() => {
         const agent = window.navigator.userAgent.toLowerCase();

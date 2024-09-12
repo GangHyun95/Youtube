@@ -1,15 +1,17 @@
-import React, { forwardRef, useState } from "react";
+import React, { forwardRef, useEffect, useState } from "react";
 import { Video } from "../../../public/types";
 import styles from "./VideoCard.module.css";
 import { formatDateTime, formatViewCount } from "../../util";
 import { useNavigate, useParams } from "react-router-dom";
 import ChannelImage from "../ChannelImage/ChannelImage";
+import useResponsive from "../../hooks/useResponsive";
 
 const VideoCard = forwardRef<HTMLLIElement, { video: Video }>(({ video }, ref) => {
     const { title, channelTitle, thumbnails, publishedAt, description } = video.snippet;
     const viewCount = parseInt(video.statistics?.viewCount || "0", 10);
     const { keyword } = useParams();
-    const cardClassName = keyword ? styles['card-search'] : styles.card;
+    const isMobileView = useResponsive(768);
+    const cardClassName = keyword && !isMobileView ? styles['card-search'] : styles.card;
     const navigate = useNavigate();
 
     const [isHovered, setIsHovered] = useState(false);
@@ -48,7 +50,7 @@ const VideoCard = forwardRef<HTMLLIElement, { video: Video }>(({ video }, ref) =
                 )}
             </section>
             <section className={styles.right}>
-                {!keyword && (
+                {(!keyword || isMobileView)  && (
                     <ChannelImage
                         src={video.channelDetails.snippet.thumbnails.default.url}
                         alt={channelTitle}
@@ -58,7 +60,7 @@ const VideoCard = forwardRef<HTMLLIElement, { video: Video }>(({ video }, ref) =
                     <div>
                         <h3 className={styles.title}>{title}</h3>
                         <div className={styles.flex}>
-                            {keyword && (
+                            {(keyword && !isMobileView) && (
                                 <ChannelImage
                                     src={video.channelDetails.snippet.thumbnails.default.url}
                                     alt={channelTitle}

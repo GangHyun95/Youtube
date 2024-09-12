@@ -131,10 +131,12 @@
 
 @media screen and (max-width: 768px) {
     .card-search {
-        flex-direction: column;
-        gap: 0px;
+        display: block;
     }
 
+    .card-search .title {
+        font-size: 16px;
+    }
     .card-search .img-container {
         width: 100%;
         padding-top: 56.25%;
@@ -142,6 +144,10 @@
 
     .card-search .right {
         max-width: 100%;
+    }
+
+    .content-container {
+        gap: 0px;
     }
 
     .card-search .desc {
