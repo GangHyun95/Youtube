@@ -90,6 +90,7 @@
     height: 40px;
     background-color: var(--color-light-gray);
     border-radius: 100%;
+    flex-shrink: 0;
     transition: filter 0.3s;
 }
 
