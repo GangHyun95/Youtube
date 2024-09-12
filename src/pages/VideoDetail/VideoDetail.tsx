@@ -34,7 +34,7 @@ export default function VideoDetail() {
                 <section className={styles["video-container"]}>
                     <iframe
                         id="player"
-                        src={`http://www.youtube.com/embed/${video.id}`}
+                        src={`https://www.youtube.com/embed/${video.id}`}
                         frameBorder="0"
                         allowFullScreen
                         title = {video.snippet.title}
