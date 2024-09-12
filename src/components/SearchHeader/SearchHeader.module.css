@@ -1,7 +1,8 @@
 .header {
     position: fixed;
-    left: 0;
+    left: 50%;
     top: 0;
+    transform: translateX(-50%);
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -13,6 +14,8 @@
     color: var(--color-text);
     z-index: 100;
     width: 100%;
+    max-width: 1920px;
+    margin: 0 auto;
 }
 
 .logo {
