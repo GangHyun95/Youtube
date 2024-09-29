@@ -1,3 +1,6 @@
+## 시연 페이지
+[Live Demo](https://youtube-xi-nine.vercel.app/)
+
 ## 프로젝트 소개
 <p>
   React, TypeScript 학습과 API 연동을 익히기 위해 YouTube Data API를 사용해 유튜브 사이트를 클론 코딩하였으며, 반응형으로 작업을 완료했습니다.
