@@ -1,46 +1,35 @@
-# Getting Started with Create React App
+## 프로젝트 소개
+<p>
+  React, TypeScript 학습과 API 연동을 익히기 위해 YouTube Data API를 사용해 유튜브 사이트를 클론 코딩하였으며, 반응형으로 작업을 완료했습니다.
+</p>
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+<br>
 
-## Available Scripts
+## 기술 스택
 
-In the project directory, you can run:
+| JavaScript | TypeScript |  React   |
+| :--------: | :--------: | :------: |
+|   ![js]    |   ![ts]    | ![react] |
 
-### `yarn start`
+<br>
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## 주요 기능
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+### 기능 1
+<p>React Query를 이용해 반복적인 데이터 요청을 방지하고, 데이터를 효율적으로 캐싱하여 관리했습니다.</p>
 
-### `yarn test`
+### 기능 2
+<p>React Query의 useInfiniteQuery를 사용해 전체 비디오 목록과 비디오 디테일 페이지에서 댓글 리스트(CommentList)와 관련 비디오 리스트(RelatedVideoList)를 무한 스크롤로 구현했습니다. 무한 스크롤이 반복되는 로직이어서 커스텀 훅으로 분리하여 최적화했습니다.</p>
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### 기능 3
+<p>Light 모드와 Dark 모드를 Context API를 이용해 구현했습니다.</p>
 
-### `yarn build`
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+<br>
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+<!-- Stack Icon Refernces -->
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `yarn eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+[js]: /images/stack/javascript.svg
+[ts]: /images/stack/typescript.svg
+[react]: /images/stack/react.svg
+[node]: /images/stack/node.svg
