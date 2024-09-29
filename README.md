@@ -29,7 +29,6 @@
 
 <!-- Stack Icon Refernces -->
 
-[js]: /images/stack/javascript.svg
-[ts]: /images/stack/typescript.svg
-[react]: /images/stack/react.svg
-[node]: /images/stack/node.svg
+[js]: /stacks/javascript.svg
+[ts]: /stacks/typescript.svg
+[react]: /stacks/react.svg
